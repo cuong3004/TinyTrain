@@ -13,8 +13,8 @@ import torch
 
 
 n_epochs = 3
-batch_size_train = 32
-batch_size_test = 32
+batch_size_train = 256
+batch_size_test = 256
 learning_rate = 0.0001
 
 random_seed = 42
@@ -62,7 +62,7 @@ class LitClassification(pl.LightningModule):
 
         import torchvision.models as models
         self.model = models.mobilenet_v2()
-        self.model.classifier[1] = nn.Linear(self.models.last_channel, 200)
+        self.model.classifier[1] = nn.Linear(self.model.last_channel, 200)
         # df_train, df_test = train_test_split(
         #     df, random_state=42, shuffle=True, test_size=0.2
         # )
@@ -99,7 +99,7 @@ class LitClassification(pl.LightningModule):
         params = list(self.model.parameters())
 
         optimizer = torch.optim.AdamW(params,
-                  lr = 1e-4, # args.learning_rate - default is 5e-5,
+                  lr = 1e-3, # args.learning_rate - default is 5e-5,
                   eps = 1e-8 # args.adam_epsilon  - default is 1e-8.
                 )
         # optimizer_fit = AdamW(self.fit_dense.parameters(),
@@ -172,10 +172,10 @@ model_lit = LitClassification()
 # %%
 trainer = pl.Trainer(
                     gpus=1, 
-                    max_epochs=100,
-                    limit_train_batches=0.2,
-                    reload_dataloaders_every_n_epochs=1,
-                    default_root_dir="/content/drive/MyDrive/log_fake_review/deny_bert_other",
+                    max_epochs=50,
+                    # limit_train_batches=0.2,
+                    # reload_dataloaders_every_n_epochs=1,
+                    default_root_dir="/content/drive/MyDrive/log_fake_review/log_tiny_train",
                     callbacks=[checkpoint_callback]
                     )
 trainer.fit(model_lit)
