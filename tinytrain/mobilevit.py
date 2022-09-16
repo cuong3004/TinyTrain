@@ -177,10 +177,10 @@ class MobileViT(nn.Module):
 
         self.mv2 = nn.ModuleList([])
         self.mv2.append(MV2Block(channels[0], channels[1], 1, expansion))
-        self.mv2.append(MV2Block(channels[1], channels[2], 2, expansion))
+        self.mv2.append(MV2Block(channels[1], channels[2], 1, expansion))
         self.mv2.append(MV2Block(channels[2], channels[3], 1, expansion))
         self.mv2.append(MV2Block(channels[2], channels[3], 1, expansion))   # Repeat
-        self.mv2.append(MV2Block(channels[3], channels[4], 2, expansion))
+        self.mv2.append(MV2Block(channels[3], channels[4], 1, expansion))
         self.mv2.append(MV2Block(channels[5], channels[6], 2, expansion))
         self.mv2.append(MV2Block(channels[7], channels[8], 2, expansion))
         

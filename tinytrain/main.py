@@ -13,8 +13,8 @@ import torch
 from mobilevit import mobilevit_xxs
 
 n_epochs = 3
-batch_size_train = 256
-batch_size_test = 256
+batch_size_train = 128
+batch_size_test = 128
 learning_rate = 0.0001
 
 random_seed = 42
@@ -25,6 +25,7 @@ torch.manual_seed(random_seed)
 train_loader = torch.utils.data.DataLoader(
                             torchvision.datasets.ImageFolder('../tiny-imagenet-200/train/',
                                 transform=torchvision.transforms.Compose([
+                                    # torchvision.transforms.Resize(256),
                                     torchvision.transforms.ToTensor(),
                                     torchvision.transforms.Normalize(
                                         (0.5,), (0.5,))
@@ -34,6 +35,7 @@ train_loader = torch.utils.data.DataLoader(
 test_loader = torch.utils.data.DataLoader(
                             torchvision.datasets.ImageFolder('../tiny-imagenet-200/train/',
                                 transform=torchvision.transforms.Compose([
+                                    # torchvision.transforms.Resize(256),
                                     torchvision.transforms.ToTensor(),
                                     torchvision.transforms.Normalize(
                                         (0.5,), (0.5,))
@@ -120,7 +122,7 @@ class LitClassification(pl.LightningModule):
 
     def share_batch(self, batch, state):
         image, labels = batch
-
+        
         out_logits = self.model(image) 
         
 
