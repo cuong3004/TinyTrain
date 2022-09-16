@@ -97,7 +97,7 @@ class LitClassification(pl.LightningModule):
         # params = list(self.student_model.parameters()) + list(self.fit_dense.parameters())
         params = list(self.model.parameters())
 
-        optimizer = torch.opt.AdamW(params,
+        optimizer = torch.optim.AdamW(params,
                   lr = 1e-4, # args.learning_rate - default is 5e-5,
                   eps = 1e-8 # args.adam_epsilon  - default is 1e-8.
                 )
@@ -169,7 +169,8 @@ checkpoint_callback = ModelCheckpoint(
 # %%
 model_lit = LitClassification()
 # %%
-trainer = pl.Trainer(gpus=1, 
+trainer = pl.Trainer(
+                    # gpus=1, 
                     max_epochs=100,
                     limit_train_batches=0.2,
                     reload_dataloaders_every_n_epochs=1,
