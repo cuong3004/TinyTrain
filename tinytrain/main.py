@@ -170,7 +170,7 @@ checkpoint_callback = ModelCheckpoint(
 model_lit = LitClassification()
 # %%
 trainer = pl.Trainer(
-                    # gpus=1, 
+                    gpus=1, 
                     max_epochs=100,
                     limit_train_batches=0.2,
                     reload_dataloaders_every_n_epochs=1,
