@@ -10,7 +10,7 @@ from torch.utils.data import DataLoader
 import torch.nn.functional as F
 import torch.nn as nn
 import torch 
-
+from mobilevit import mobilevit_xxs
 
 n_epochs = 3
 batch_size_train = 256
@@ -61,8 +61,9 @@ class LitClassification(pl.LightningModule):
         super().__init__()
 
         import torchvision.models as models
-        self.model = models.mobilenet_v2(pretrained=True)
-        self.model.classifier[1] = nn.Linear(self.model.last_channel, 200)
+        # self.model = models.mobilenet_v2(pretrained=True)
+        # self.model.classifier[1] = nn.Linear(self.model.last_channel, 200)
+        self.model = mobilevit_xxs()
         # df_train, df_test = train_test_split(
         #     df, random_state=42, shuffle=True, test_size=0.2
         # )
