@@ -62,6 +62,7 @@ class LitClassification(pl.LightningModule):
 
         import torchvision.models as models
         self.model = models.mobilenet_v2()
+        self.model.classifier[1] = nn.Linear(self.models.last_channel, 200)
         # df_train, df_test = train_test_split(
         #     df, random_state=42, shuffle=True, test_size=0.2
         # )
